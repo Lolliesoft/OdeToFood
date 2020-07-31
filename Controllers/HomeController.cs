@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OdeToFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,15 @@ namespace OdeToFood.Controllers
 {
     public class HomeController : Controller
     {
+        private IRestaurantData _restaurantData;
+
+        public HomeController(IRestaurantData restaurantData)
+        {
+            _restaurantData = restaurantData;
+        }
         public IActionResult Index()
         {
-            var model = new Models.Restaurant {
-                Id = 1, Name = "Amir's Pizza Place" 
-            };
+            var model = _restaurantData.GetAll();
 
             //return new ObjectResult(model); //creates a json endpoint
 
