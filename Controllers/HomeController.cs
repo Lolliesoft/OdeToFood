@@ -28,10 +28,16 @@ namespace OdeToFood.Controllers
 
             return View(model); //returns a view result
         }
+        // input Model
         public IActionResult Details (int id)
         {
             var model = _restaurantData.Get(id);
+            if(model == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             return View(model);
         }
+
     }
 }
