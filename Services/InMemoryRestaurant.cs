@@ -1,12 +1,11 @@
 ﻿using OdeToFood.Models;
-using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace OdeToFood.Services
 {
-    public class InMemoryRestaurant : IRestaurantData
+    public class InMemoryRestaurant : IRestaurantData, IWaiterData
     {
         public InMemoryRestaurant()
         {
@@ -16,6 +15,16 @@ namespace OdeToFood.Services
                 new Restaurant {Id = 2, Name = "Tersiguels"},
                 new Restaurant {Id = 3, Name = "King's Contrivance"}
             };
+
+            _waiters = new List<Waiters>
+            {
+                new Waiters {Id = 1, waitersName = "Jackie"},
+                new Waiters {Id = 2, waitersName = "Abby"}
+            };
+
+            
+
+            
         }
         
 
@@ -29,6 +38,17 @@ namespace OdeToFood.Services
             return _restaurants.FirstOrDefault(r => r.Id == id);
         }
 
+        IEnumerable<Waiters> IWaiterData.GetAll()
+        {
+            return _waiters.OrderBy(w => w.waitersName);
+        }
+
+        Waiters IWaiterData.Get(int id)
+        {
+            return _waiters.FirstOrDefault(w => w.Id == id);
+        }
+
         List<Restaurant> _restaurants;
+        List<Waiters> _waiters;
     }
 }

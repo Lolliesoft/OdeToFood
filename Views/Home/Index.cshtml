@@ -15,5 +15,14 @@
         </tr>
         }
     </table>
+    <table>
+        @foreach (var waiter in Model.Waiters)
+        {
+        <tr>
+            <td>@waiter.Id</td>
+            <td>@waiter.waitersName</td>
+        </tr>
+        }
+    </table>
 </body>
 </html>
